@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form Example</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+  </head>
+
+
+  
+
+  <body>
+    <section class="hero is-primary is-medium">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item">
+                <h1 class="title" id="home">Crewmates: student edition</h1>
+              </a>
+              <span class="navbar-burger" data-target="navbarMenuHeroA">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenuHeroA" class="navbar-menu">
+              <div class="navbar-end">
+                <a class="navbar-item is-active" href="#home"> Home </a>
+                <a class="navbar-item" href="#aboutus"> Meet All the CrewMates (SUMMARY PAGE): </a>
+                <a class="navbar-item" href="#ourteam"> Welcome </a>
+                <span class="navbar-item">
+                  <a class="button is-primary is-inverted" href="#contact">
+                    <span class="icon">
+                    
+                    </span>
+                    <span>New Mate Upload</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">Welcome to CrewMates: Student Edition</h1>
+          <p class="subtitle"></p>
+        </div>
+      </div>
+    </section>
+    <section class="section is-medium container">
+      <h1 class="title" id="aboutus">Meet all the CrewMates SUMMARY</h1>
+      <h2 class="title" >DoubleClick on CrewMate to get unique info link about them</h2>
+      
+      </h2>
+      <div id="contact-submissions">
+         
+      </div>
+    </section>
+    <hr />
+    <section class="section is-medium container">
+      <h1 class="title" id="ourteam">Welcome</h1>
+      <h2 class="subtitle">
+      
+      </h2>
+    </section>
+    <hr />
+    <section class="section container">
+      <form name="contact" id="contact-form">
+        <h1 class="title" id="contact">New Mate Upload</h1>
+        <div class="field">
+          <label class="label" for="name">CrewMate Name</label>
+          <div class="control">
+            <input
+              required
+              class="input"
+              type="text"
+              placeholder="yourname"
+              name="name"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">CrewMate Email</label>
+          <div class="control has-icons-left">
+            <input
+              class="input"
+              type="email"
+              required
+              placeholder="Email input"
+              name="email"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="subject">Area of Study</label>
+          <div class="control">
+            <div class="select">
+              <select name="subject">
+                <option value="">Field of Study</option>
+                <option value="STEM">STEM STUDIES</option>
+                <option value="ARTS">ART STUDIES</option>
+                <option value="Humanities">Humanities Studies</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="message">CrewMate Description</label>
+          <div class="control">
+            <textarea
+              required
+              class="textarea"
+              placeholder="Textarea"
+              name="message"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <div class="content has-text-centered container">
+        <p>
+          <strong>Footer</strong>
+          <a href="">My link</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script>
+
+
+
+    //NEW: to Display summary page
+    const contactForm = document.getElementById("contact-form");
+    contactForm.addEventListener("submit", function(event) {
+       // Get form data
+        const formData = new FormData(document.getElementById("contact-form"));
+
+      // Create new submission div
+      const submissionDiv = document.createElement("div");
+      submissionDiv.classList.add("box");
+      submissionDiv.innerHTML = `
+        <p><strong>Name:</strong> ${formData.get("name")}</p>
+        <p><strong>Email:</strong> ${formData.get("email")}</p>
+        <p><strong>Field of Study:</strong> ${formData.get("subject")}</p>
+        <p><strong>Description:</strong> ${formData.get("message")}</p>
+      `;
+
+      // Append new submission div to contact-submissions div
+      const contactSubmissionsDiv = document.getElementById("contact-submissions");
+      contactSubmissionsDiv.appendChild(submissionDiv);
+
+      // Reset form
+      document.getElementById("contact-form").reset();
+
+    });
+    //END OF NEW
+
+
+//NEW: DELETE FUNCTIONALITY:
+    const submissionDiv = document.getElementById("contact-submissions");
+
+submissionDiv.addEventListener("click", () => {
+  submissionDiv.remove();
+  alert("crewmate has been deleted")
+});
+
+
+//NEW: EDIT FUNCTIONALITY:
+
+// Add event listener to submissionDiv to listen for hover event
+submissionDiv.addEventListener("click", (event) => {
+  // Check if the hovered element is a submission
+  if (event.target.classList.contains("submission")) {
+    // Get the innerHTML of the hovered submission
+    const innerHTML = event.target.innerHTML;
+    // Convert the innerHTML into a DOM element for easier manipulation
+    const submissionElement = new DOMParser().parseFromString(
+      innerHTML,
+      "text/html"
+    ).body.firstChild;
+    // Add event listener to the submission element to listen for click event
+    submissionElement.addEventListener("click", (event) => {
+      // Check if the clicked element is the name, email, subject, or message
+      if (
+        event.target.classList.contains("name") ||
+        event.target.classList.contains("email") ||
+        event.target.classList.contains("subject") ||
+        event.target.classList.contains("message")
+      ) {
+        // Prompt the user to enter new text and update the innerHTML
+        const newText = prompt("Enter new text:");
+        if (newText !== null) {
+          event.target.innerHTML = newText;
+        }
+      }
+    });
+  }
+});
+
+
+
+
+
+
+
+    
+    
+    
+
+    //End of Display summary page
+
+
+
+      const { createClient } = supabase //imported supabase
+      supabase = createClient("https://mrevsbzefuzlbsapkycg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yZXZzYnplZnV6bGJzYXBreWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODEyNzg2NjUsImV4cCI6MTk5Njg1NDY2NX0.DggCOtJaXNjHrUck91EM0A6x-ydsfCZDqOE_oberC74")
+      
+      const form = document.querySelector('#contact-form')
+      form.addEventListener('submit', async (event) => {
+
+          event.preventDefault() //prevents page from refreshing
+
+          const formInputs = form.querySelectorAll('input, select, textarea')
+
+          let submision = {}
+
+          formInputs.forEach(element => {
+            const { value, name } = element
+            if (value) {
+                submision[name] = value
+            }
+          })
+
+          //const { error } = await supabase.from('entries').insert([submision], { returning: 'minimal'})
+
+          if (error) {
+              alert('Nice')
+          } else {
+              alert('Thanks for contacting us')
+          }
+
+          formInputs.forEach(element => element.value = '')
+
+
+
+              //NEW: to Display summary page
+              //const contactForm = document.getElementById("contact-form");
+              contactForm.addEventListener("submit", function(event) {
+                // Get form data
+                  const formData = new FormData(document.getElementById("contact-form"));
+
+                // Create new submission div
+                const submissionDiv = document.createElement("div");
+                submissionDiv.classList.add("box");
+
+                submissionDiv.innerHTML = `
+                  <p><strong>Name:</strong> ${formData.get("name")}</p>
+                  <p><strong>Email:</strong> ${formData.get("email")}</p>
+                  <p><strong>Field of Study:</strong> ${formData.get("subject")}</p>
+               
+                  
+                `;
+                //   <p><strong>Description:</strong> ${formData.get("message")}</p>
+
+                // Append new submission div to contact-submissions div
+                const contactSubmissionsDiv = document.getElementById("contact-submissions");
+                contactSubmissionsDiv.appendChild(submissionDiv);
+
+                // Reset form
+                document.getElementById("contact-form").reset();
+
+              });
+              //END OF NEW
+
+      })
+  </script>
+</html>
