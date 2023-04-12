@@ -30,7 +30,7 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-IMGUR NOT WORKING. PLEASE WATCH ON YOUTUBE INSTEAD:
+IMGUR NOT WORKING. PLEASE WATCH ON YOUTUBE INSTEAD with the following 2 videos:
 
 https://www.youtube.com/watch?v=jHkzAYHuoVw
 <br>
